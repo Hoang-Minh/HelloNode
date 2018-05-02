@@ -15,6 +15,9 @@ switch (transaction) {
         var amount = process.argv[3];
         withdrawTransaction(amount);
         break;
+    case "lotto":
+        playLotto();
+        break;
 
 }
 
@@ -32,16 +35,28 @@ function readTransaction() {
     });
 }
 
-function addTransaction(number){
-    fs.appendFile("bank.txt", ", " + number, "utf-8", function(err){
-        if(err) throw err;
+function addTransaction(number) {
+    fs.appendFile("bank.txt", ", " + number, "utf-8", function (err) {
+        if (err) throw err;
         console.log("transaction got updated");
     })
 }
 
-function withdrawTransaction(number){
-    fs.appendFile("bank.txt", ", -" + number, "utf-8", function(err){
-        if(err) throw err;
+function withdrawTransaction(number) {
+    fs.appendFile("bank.txt", ", -" + number, "utf-8", function (err) {
+        if (err) throw err;
         console.log("transaction got updated");
+    })
+}
+
+function playLotto(){
+    fs.appendFile("bank.txt", ", -.25", "utf-8", function(err){
+        if(err) throw err;
+        var rand = Math.floor((Math.random() * 10) + 1);
+        if(rand === 1){
+            addTransaction(10);
+        }else{
+            console.log("you just lost the lotto");
+        }
     })
 }
